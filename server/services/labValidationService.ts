@@ -152,12 +152,7 @@ export function validateLabType(ocrText: string, labType: LabType): ValidationRe
     }
   }
   
-  const hasRequiredKeywords = requiredKeywordsFound >= 2;
-  if (!hasRequiredKeywords) {
-    reasons.push(`Missing required ${labType.toUpperCase()} keywords (found ${requiredKeywordsFound}, need minimum 2)`);
-  }
-  
-  // Check expected parameters
+  // Check expected parameters FIRST (needed for lenient validation)
   for (const param of rules.expectedParameters) {
     if (normalizedText.includes(param.toLowerCase())) {
       matchedParameters.push(param);
@@ -165,6 +160,15 @@ export function validateLabType(ocrText: string, labType: LabType): ValidationRe
   }
   
   const hasEnoughParameters = matchedParameters.length >= rules.minimumParameterMatches;
+  
+  // For urinalysis, if we have enough parameter matches, we can be lenient on keywords
+  // This handles cases where OCR doesn't pick up "urinalysis" header but gets the data
+  const hasRequiredKeywords = requiredKeywordsFound >= 2 || 
+    (labType === 'urinalysis' && hasEnoughParameters);
+  
+  if (!hasRequiredKeywords) {
+    reasons.push(`Missing required ${labType.toUpperCase()} keywords (found ${requiredKeywordsFound}, need minimum 2 or ${rules.minimumParameterMatches}+ parameters)`);
+  }
   if (!hasEnoughParameters) {
     reasons.push(`Insufficient ${labType.toUpperCase()} parameters detected (found ${matchedParameters.length}/${rules.minimumParameterMatches} minimum)`);
   }
@@ -185,6 +189,11 @@ export function validateLabType(ocrText: string, labType: LabType): ValidationRe
   if (hasRequiredKeywords) confidence += 0.3;
   if (hasEnoughParameters) confidence += 0.3;
   if (hasExpectedPatterns) confidence += 0.2;
+  
+  // Boost confidence for urinalysis with strong parameter matches
+  if (labType === 'urinalysis' && matchedParameters.length >= rules.minimumParameterMatches + 2) {
+    confidence = Math.min(1.0, confidence + 0.1);
+  }
   
   // Determine if valid
   const isValid = hasMedicalIndicators && hasRequiredKeywords && hasEnoughParameters;
