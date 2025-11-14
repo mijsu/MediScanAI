@@ -1,0 +1,15 @@
+MEDiscan Health Risk Prediction Models
+==================================================
+
+Gradient Boosting Accuracy: 1.000
+Logistic Regression Accuracy: 1.000
+
+Features (12):
+  - WBC, RBC, Hemoglobin, Platelets
+  - Cholesterol, HDL, LDL, Triglycerides
+  - Glucose, A1C, pH, Protein
+
+Target Classes (3):
+  - 0: Low Risk
+  - 1: Moderate Risk
+  - 2: High Risk
