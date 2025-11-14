@@ -33,8 +33,18 @@ interface MLPrediction {
 async function callPythonML(labValues: Record<string, string | number>): Promise<MLPrediction> {
   try {
     console.log('Calling Python ML API with values:', JSON.stringify(labValues));
+    console.log('ML_API_URL:', ML_API_URL);
     
-    const response = await fetch(`${ML_API_URL}/predict`, {
+    // Construct the endpoint URL - handle both local and HuggingFace URLs
+    let endpoint = `${ML_API_URL}/predict`;
+    if (ML_API_URL.includes('huggingface.co')) {
+      // For HuggingFace Spaces, use the API endpoint format
+      endpoint = `${ML_API_URL}/api/predict`;
+    }
+    
+    console.log('Calling endpoint:', endpoint);
+    
+    const response = await fetch(endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
