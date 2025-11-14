@@ -38,8 +38,14 @@ async function callPythonML(labValues: Record<string, string | number>): Promise
     // Construct the endpoint URL - handle both local and HuggingFace URLs
     let endpoint = `${ML_API_URL}/predict`;
     if (ML_API_URL.includes('huggingface.co')) {
-      // For HuggingFace Spaces, use the API endpoint format
-      endpoint = `${ML_API_URL}/api/predict`;
+      // For HuggingFace Spaces, construct the correct inference API URL
+      // Convert: https://huggingface.co/spaces/user/space-name 
+      // To: https://user-space-name.hf.space/predict
+      const spacePath = ML_API_URL.split('spaces/')[1]; // Get "user/space-name"
+      if (spacePath) {
+        const [user, spaceName] = spacePath.split('/');
+        endpoint = `https://${user}-${spaceName}.hf.space/predict`;
+      }
     }
     
     console.log('Calling endpoint:', endpoint);
