@@ -40,8 +40,10 @@ export default function SignInPage() {
         <div className="flex justify-center mb-8 text-foreground">
           <div className="flex items-center gap-2.5">
             <div className="w-14 h-14 rounded-xl shadow-lg shadow-primary-500/40 flex items-center justify-center flex-shrink-0 bg-gradient-to-br from-primary-500 to-primary-600 overflow-hidden">
-              <div className="w-12 h-12 bg-gray-100 dark:bg-slate-700 rounded-md flex items-center justify-center">
-                <img src="/labvio-high-resolution-logo.png?v=3" alt="LabVio Logo" className="w-10 h-10 object-contain" />
+              <div className="w-12 h-12 rounded-md flex items-center justify-center" style={{backgroundColor: '#2b3944'}}>
+                <div className="rounded-sm flex items-center justify-center" style={{width: '72%', height: '62%', backgroundColor: '#efe8ff'}}>
+                  <img src="/labvio-high-resolution-logo.png?v=3" alt="LabVio Logo" className="w-8 h-8 object-contain" />
+                </div>
               </div>
             </div>
             <span className="font-bold text-2xl text-foreground drop-shadow">

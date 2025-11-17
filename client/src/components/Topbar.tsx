@@ -42,12 +42,14 @@ export default function Topbar() {
           {/* Logo & Brand */}
           <Link href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity text-foreground" data-testid="link-home-logo">
             <div className="w-11 h-11 rounded-xl shadow-lg shadow-primary-500/40 flex items-center justify-center flex-shrink-0 bg-gradient-to-br from-primary-500 to-primary-600 overflow-hidden">
-              <div className="w-full h-full p-1 bg-gray-100 dark:bg-slate-700 rounded-md flex items-center justify-center">
-                <img
-                  src="/labvio-high-resolution-logo.png?v=3"
-                  alt="LabVio Logo"
-                  className="w-full h-full object-contain p-1"
-                />
+              <div className="w-full h-full p-1 rounded-md flex items-center justify-center" style={{backgroundColor: '#2b3944'}}>
+                <div className="rounded-sm flex items-center justify-center" style={{width: '60%', height: '60%', backgroundColor: '#efe8ff'}}>
+                  <img
+                    src="/labvio-high-resolution-logo.png?v=3"
+                    alt="LabVio Logo"
+                    className="w-9 h-9 object-contain"
+                  />
+                </div>
               </div>
             </div>
             <span className="font-bold text-xl text-foreground hidden sm:inline drop-shadow">
