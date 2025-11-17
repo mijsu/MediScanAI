@@ -41,20 +41,8 @@ export default function Topbar() {
         <div className="container mx-auto px-4 h-full flex items-center justify-between max-w-7xl">
           {/* Logo & Brand */}
           <Link href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity" data-testid="link-home-logo">
-            <div className="w-11 h-11 rounded-xl shadow-lg shadow-primary-500/40 flex items-center justify-center flex-shrink-0 bg-gradient-to-br from-primary-500 to-primary-600">
-              <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" fill="none" className="w-full h-full p-1">
-                <g transform="translate(100, 100)">
-                  <rect x="-8" y="-35" width="16" height="70" rx="8" fill="white"/>
-                  <rect x="-35" y="-8" width="70" height="16" rx="8" fill="white"/>
-                  <g opacity="0.3">
-                    <line x1="-50" y1="-45" x2="-40" y2="-45" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-                    <line x1="-38" y1="-45" x2="-32" y2="-35" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    <line x1="-32" y1="-35" x2="-26" y2="-50" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    <line x1="-26" y1="-50" x2="-20" y2="-45" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    <line x1="-20" y1="-45" x2="-10" y2="-45" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-                  </g>
-                </g>
-              </svg>
+            <div className="w-11 h-11 rounded-xl shadow-lg shadow-primary-500/40 flex items-center justify-center flex-shrink-0 bg-gradient-to-br from-primary-500 to-primary-600 overflow-hidden">
+              <img src="/labvio-high-resolution-logo.png?v=3" alt="LabVio Logo" className="w-full h-full object-contain p-1" />
             </div>
             <span className="font-bold text-xl bg-gradient-to-r from-primary-600 to-primary-500 bg-clip-text text-transparent hidden sm:inline">
               LabVio
