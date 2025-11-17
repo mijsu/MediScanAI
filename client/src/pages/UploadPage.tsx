@@ -285,7 +285,7 @@ export default function UploadPage() {
                       <Button
                         variant="destructive"
                         size="icon"
-                        className="absolute top-1 right-1 h-9 w-9 rounded-full shadow-lg z-30 ring-2 ring-white/80 dark:ring-black/60 border border-white/20"
+                        className="absolute top-3 right-3 h-10 w-10 rounded-full shadow-lg z-30 ring-2 ring-white/80 dark:ring-black/60 border border-white/20 hover:scale-110 transition-transform"
                         onClick={removeFile}
                         data-testid="button-remove-file"
                       >
