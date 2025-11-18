@@ -26,6 +26,7 @@ import {
   Stethoscope,
   ArrowRight,
   ArrowUp,
+  ArrowDown,
   X,
   FileText,
   AlertTriangle,
@@ -667,6 +668,35 @@ export default function AnalysisResultModal({
     }
   };
 
+  // Determine icon and label for lab status badges
+  const renderStatusForLab = (lab: any) => {
+    const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+    if (lab.status === 'normal') return { Icon: CheckCircle2, label: capitalize(lab.status) };
+    if (lab.status === 'borderline') return { Icon: AlertCircle, label: capitalize(lab.status) };
+
+    // abnormal: decide if value is below or above the normal range
+    const valueNum = typeof lab.value === 'number' ? lab.value : parseFloat(String(lab.value));
+    let Icon = ArrowUp;
+    let label = 'Elevate';
+
+    const match = String(lab.normalRange).match(/(-?\d+\.?\d*)\s*-\s*(-?\d+\.?\d*)/);
+    if (match) {
+      const min = parseFloat(match[1]);
+      const max = parseFloat(match[2]);
+      if (!isNaN(valueNum)) {
+        if (valueNum < min) {
+          Icon = ArrowDown;
+          label = 'Decreased';
+        } else if (valueNum > max) {
+          Icon = ArrowUp;
+          label = 'Elevate';
+        }
+      }
+    }
+
+    return { Icon, label };
+  };
+
   const handleCall = (phoneNumber: string) => {
     window.location.href = `tel:${phoneNumber}`;
   };
@@ -823,7 +853,10 @@ export default function AnalysisResultModal({
                   </CardHeader>
                   <CardContent className="px-3 sm:px-6 pb-3 sm:pb-6">
                     <div className="space-y-3 sm:space-y-4">
-                      {analysis.comprehensiveAnalysis.labValueBreakdown.map((lab, index) => (
+                      {analysis.comprehensiveAnalysis.labValueBreakdown.map((lab, index) => {
+                        const { Icon: StatusIcon, label: statusLabel } = renderStatusForLab(lab);
+
+                        return (
                         <div
                           key={index}
                           className="p-3 sm:p-4 rounded-lg border border-border/50 bg-gradient-to-br from-background/50 to-background/30 hover-elevate"
@@ -843,10 +876,8 @@ export default function AnalysisResultModal({
                                   }`}
                                   data-testid={`badge-status-${index}`}
                                 >
-                                  {lab.status === 'normal' && <CheckCircle2 className="h-3 w-3 mr-1" />}
-                                  {lab.status === 'borderline' && <AlertCircle className="h-3 w-3 mr-1" />}
-                                  {lab.status === 'abnormal' && <ArrowUp className="h-3 w-3 mr-1" />}
-                                  {lab.status === 'abnormal' ? 'Elevate' : lab.status.charAt(0).toUpperCase() + lab.status.slice(1)}
+                                  {StatusIcon && <StatusIcon className="h-3 w-3 mr-1" />}
+                                  {statusLabel}
                                 </Badge>
                               </div>
                               <div className="flex items-center gap-2 sm:gap-4 text-xs text-muted-foreground mb-2 flex-wrap">
@@ -857,7 +888,8 @@ export default function AnalysisResultModal({
                           </div>
                           <p className="text-xs sm:text-sm text-foreground/80 leading-relaxed">{lab.interpretation}</p>
                         </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </CardContent>
                 </Card>
