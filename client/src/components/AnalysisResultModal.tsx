@@ -1209,12 +1209,19 @@ export default function AnalysisResultModal({
                             <h3 className="text-base sm:text-lg font-bold text-foreground" data-testid="text-hospital-name">
                               {recommendedHospital.name}
                             </h3>
-                            {recommendedHospital.isOpen24Hours && (
-                              <Badge className="bg-green-500/10 text-green-600 dark:text-green-400 border-green-500/20 text-xs">
-                                <Clock className="h-3 w-3 mr-1" />
-                                24/7
+
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 ml-2">
+                              <Badge className="bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20 text-xs">
+                                Best Option
                               </Badge>
-                            )}
+
+                              {recommendedHospital.isOpen24Hours && (
+                                <Badge className="bg-green-500/10 text-green-600 dark:text-green-400 border-green-500/20 text-xs">
+                                  <Clock className="h-3 w-3 mr-1" />
+                                  24/7
+                                </Badge>
+                              )}
+                            </div>
                           </div>
                           
                           <div className="flex items-start gap-1.5 sm:gap-2 text-xs sm:text-sm text-muted-foreground mb-1.5 sm:mb-2">
