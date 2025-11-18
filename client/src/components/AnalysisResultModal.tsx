@@ -1211,7 +1211,7 @@ export default function AnalysisResultModal({
                             </h3>
 
                             <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 ml-2">
-                              <Badge className="bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20 text-xs">
+                              <Badge className="bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20 text-xs">
                                 Best Option
                               </Badge>
 
