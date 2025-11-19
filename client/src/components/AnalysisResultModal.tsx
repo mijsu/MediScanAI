@@ -1273,7 +1273,7 @@ export default function AnalysisResultModal({
                           <MapPin className="h-4 w-4 text-amber-600" />
                         </div>
                         <div>
-                          <p className="text-sm font-semibold text-foreground">Nearest Recommended Hospital</p>
+                          <p className="text-sm font-semibold text-foreground">Nearest Recommended Clinic</p>
                           <p className="text-xs text-muted-foreground">Based on proximity to your location</p>
                         </div>
                       </div>
